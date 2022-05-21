@@ -4,4 +4,21 @@
 
 $.ajaxPrefilter((options) => {
     options.url = `http://www.liulongbin.top:3007` + options.url;
+    //在请求之前给有权限的接口注入 token
+    if(options.url.includes("/my/")){
+        options.headers = {
+            Authorization:localStorage.getItem("token")
+        };
+    }
+
+    //统一处理权限问题
+    options.complete = (res) => {
+        console.log(res);
+        if(res.responseJSON.status === 1 && res.responseJSON.message === "身份认证失败！"){
+            console.log(1);
+            //清空 token
+            localStorage.removeItem("token");
+            location.href = "/login.html";
+        }
+    };
 })
