@@ -61,4 +61,8 @@ const randerAvatar = (user) =>{
         const firstName = name[0].toUpperCase();
         $(".text-avatar").html(firstName).show();
     }
+};
+
+function change(){
+    $("#art_list").addClass("layuui-this").next().removeClass("layui-this")
 }
